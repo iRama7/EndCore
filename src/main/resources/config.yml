@@ -1,0 +1,4 @@
+config:
+  backup_name: "end_backup"
+  time_between_actions: 40 #ticks
+  teleport_location:

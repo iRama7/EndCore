@@ -4,3 +4,5 @@ main: rama.EndCore
 api-version: 1.19
 authors: [ ImRama ]
 description: End world utilities plugin. Made for UnBloque
+commands:
+  endcore:
