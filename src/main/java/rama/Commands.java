@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import java.io.IOException;
 
 import static rama.EndCore.plugin;
+import static rama.EndCore.task;
 
 public class Commands implements CommandExecutor {
     @Override
@@ -35,7 +36,12 @@ public class Commands implements CommandExecutor {
                 plugin.saveConfig();
                 plugin.reloadConfig();
                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aTeleport location saved."));
+            }else if(args[0].equalsIgnoreCase("getTime")){
+                sender.sendMessage(task.getTimeFormatted());
             }
+        }else if(args.length == 2 && args[0].equalsIgnoreCase("setTime")){
+            long newTime = Long.parseLong(args[1]);
+            task.changeDelay(newTime);
         }
         return false;
     }

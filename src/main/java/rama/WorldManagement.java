@@ -57,24 +57,25 @@ public class WorldManagement {
         pluginLog("&eProgress: [&f----------&e] &f0%");
 
         Long delay = plugin.getConfig().getLong("config.time_between_actions");
+        String world_name = plugin.getConfig().getString("config.world_name");
 
         BukkitScheduler scheduler = Bukkit.getScheduler();
         scheduler.runTaskLater(plugin, () -> {
             pluginLog("&eProgress: [&f#---------&e] &f12%");
-            unloadWorld(Bukkit.getWorld("world_the_end"));
+            unloadWorld(Bukkit.getWorld(world_name));
         }, delay);
 
 
         scheduler.runTaskLater(plugin, () -> {
             pluginLog("&eProgress: [&f###-------&e] &f37%");
-            deleteWorld("world_the_end");
+            deleteWorld(world_name);
         }, delay);
 
 
         scheduler.runTaskLater(plugin, () -> {
             pluginLog("&eProgress: [&f######----&e] &f62%");
             try {
-                copyBackupFolder("end_backup", "world_the_end");
+                copyBackupFolder("end_backup", world_name);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -82,7 +83,7 @@ public class WorldManagement {
 
         scheduler.runTaskLater(plugin, () -> {
             pluginLog("&eProgress: [&f########--&e] &f87%");
-            createEndWorld("world_the_end");
+            createEndWorld(world_name);
         }, delay);
 
 

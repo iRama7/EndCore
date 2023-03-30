@@ -1,4 +1,12 @@
+time: 0 #do not touch
 config:
   backup_name: "end_backup"
+  world_name: "world_the_end"
   time_between_actions: 40 #ticks
+  restart_time: 168 #hours
   teleport_location:
+language:
+  teleport: "&e&lEND &7We've moved you to the spawn."
+  restarting: "&e&lEND &7Cleaning the world."
+  restart_complete: "&e&lEND &7Clean complete."
+
