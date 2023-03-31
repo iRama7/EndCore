@@ -18,9 +18,12 @@ public class DelayedTask {
     private long startTime;
     private long elapsedTime;
 
+    private long configDelayHours;
+
     public DelayedTask(Plugin plugin, long delayHours) {
         this.plugin = plugin;
         this.delayHours = delayHours;
+        configDelayHours = plugin.getConfig().getLong("config.restart_time");
     }
 
     public void start() {
@@ -29,12 +32,12 @@ public class DelayedTask {
 
         startTime = System.currentTimeMillis();
 
-        taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+        taskId = Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
             @Override
             public void run() {
                 executeTask();
             }
-        }, delayHours * 60 * 60 * 20, delayHours * 60 * 60 * 20);
+        }, delayHours * 60 * 60 * 20);
     }
 
     public Long getRemainingTime() {
@@ -60,6 +63,7 @@ public class DelayedTask {
         this.delayHours = delayHours;
         Bukkit.getScheduler().cancelTask(taskId);
         start();
+        this.delayHours = configDelayHours;
     }
 
     private synchronized void executeTask() {
@@ -67,6 +71,9 @@ public class DelayedTask {
             startTime = System.currentTimeMillis();
             WorldManagement wm = new WorldManagement();
             wm.restartWorld();
+            Bukkit.getScheduler().cancelTask(taskId);
+            this.delayHours = configDelayHours;
+            start();
         } catch (Exception e) {
             e.printStackTrace();
         }
