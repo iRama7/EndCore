@@ -49,7 +49,7 @@ public final class EndCore extends JavaPlugin implements Listener {
         Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', print));
     }
 
-    public void pluginBroadcast(String broadcast){
+    public static void pluginBroadcast(String broadcast){
         for(Player p : Bukkit.getOnlinePlayers()){
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', broadcast));
         }

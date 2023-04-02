@@ -1,12 +1,12 @@
 package rama;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 
 import java.util.concurrent.TimeUnit;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.min;
 
 public class DelayedTask {
 
@@ -28,7 +28,6 @@ public class DelayedTask {
 
     public void start() {
         timeRemaining = delayHours * 60 * 60 * 20;
-        Bukkit.getLogger().info("Starting task");
 
         startTime = System.currentTimeMillis();
 
@@ -56,7 +55,8 @@ public class DelayedTask {
         long minutes = TimeUnit.MILLISECONDS.toMinutes(timeRemaining);
         timeRemaining -= TimeUnit.MINUTES.toMillis(minutes);
         long seconds = TimeUnit.MILLISECONDS.toSeconds(timeRemaining);
-        return String.format("%d días, %d horas, %d minutos, %d segundos", days, hours, minutes, seconds);
+        String time = ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("language.time_string"));
+        return String.format(time, days, hours, minutes, seconds);
     }
 
     public void changeDelay(long delayHours) {

@@ -1,25 +1,23 @@
 package rama;
 
 import org.apache.commons.io.FileUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import java.io.File;
 import java.io.IOException;
 
-import static rama.EndCore.plugin;
-import static rama.EndCore.pluginLog;
+import static rama.EndCore.*;
 
 public class WorldManagement {
 
     public void unloadWorld(World world){
+        String teleport = plugin.getConfig().getString("language.teleport");
         for(Player p : world.getPlayers()){
             Location teleport_location = plugin.getConfig().getLocation("config.teleport_location");
             p.teleport(teleport_location);
+            p.sendMessage(ChatColor.translateAlternateColorCodes('&', teleport));
         }
         Boolean a = Bukkit.unloadWorld(world, false);
         if(a) {
@@ -46,6 +44,8 @@ public class WorldManagement {
         world.setKeepSpawnInMemory(false);
         pluginLog("&eProgress: [&f##########&e] &f100%");
         pluginLog("&aEnd restart complete!");
+        String complete = plugin.getConfig().getString("language.restart_complete");
+        pluginBroadcast(complete);
     }
 
     public void restartWorld() throws IOException {
@@ -55,6 +55,8 @@ public class WorldManagement {
         */
 
         pluginLog("&eProgress: [&f----------&e] &f0%");
+        String restarting = plugin.getConfig().getString("language.restarting");
+        pluginBroadcast(restarting);
 
         Long delay = plugin.getConfig().getLong("config.time_between_actions");
         String world_name = plugin.getConfig().getString("config.world_name");
