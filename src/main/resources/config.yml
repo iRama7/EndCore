@@ -9,5 +9,5 @@ language:
   teleport: "&e&lEND &7We've moved you to the spawn."
   restarting: "&e&lEND &7Cleaning the world..."
   restart_complete: "&e&lEND &7Clean complete."
-  time_string: "&7%d &edías, &7%d &ehoras, &7%d &eminutos, &7%d &esegundos"
+  time_string: "&7%d &edays, &7%d &ehours, &7%d &eminutes, &7%d &eseconds"
 

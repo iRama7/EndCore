@@ -12,6 +12,9 @@ import static rama.EndCore.*;
 
 public class WorldManagement {
 
+    private long startTime;
+    private long finishTime;
+
     public void unloadWorld(World world){
         String teleport = plugin.getConfig().getString("language.teleport");
         for(Player p : world.getPlayers()){
@@ -43,12 +46,15 @@ public class WorldManagement {
         World world = Bukkit.createWorld(new WorldCreator(world_name).environment(World.Environment.THE_END));
         world.setKeepSpawnInMemory(false);
         pluginLog("&eProgress: [&f##########&e] &f100%");
-        pluginLog("&aEnd restart complete!");
+        finishTime = System.currentTimeMillis();
+        pluginLog("&aEnd restart complete " + milisegundosASegundos(finishTime - startTime));
         String complete = plugin.getConfig().getString("language.restart_complete");
         pluginBroadcast(complete);
     }
 
     public void restartWorld() throws IOException {
+
+        startTime = System.currentTimeMillis();
 
         /*
         Progress: [----------]
@@ -90,6 +96,12 @@ public class WorldManagement {
 
 
     }
+
+    public static String milisegundosASegundos(long milisegundos) {
+        double segundos = milisegundos / 1000.0;
+        return String.format("(%.3fs)!", segundos);
+    }
+
 
 
 }
