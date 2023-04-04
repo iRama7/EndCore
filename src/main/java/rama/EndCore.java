@@ -7,6 +7,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
+
 public final class EndCore extends JavaPlugin implements Listener {
 
     public static DelayedTask task;
@@ -52,6 +54,12 @@ public final class EndCore extends JavaPlugin implements Listener {
     public static void pluginBroadcast(String broadcast){
         for(Player p : Bukkit.getOnlinePlayers()){
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', broadcast));
+        }
+    }
+
+    public static void executeCommands(List<String> commands){
+        for(String c : commands){
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), c);
         }
     }
 

@@ -45,6 +45,7 @@ public class WorldManagement {
     public void createEndWorld(String world_name){
         World world = Bukkit.createWorld(new WorldCreator(world_name).environment(World.Environment.THE_END));
         world.setKeepSpawnInMemory(false);
+        executeCommands(plugin.getConfig().getStringList("config.after_commands"));
         pluginLog("&eProgress: [&f##########&e] &f100%");
         finishTime = System.currentTimeMillis();
         pluginLog("&aEnd restart complete " + milisegundosASegundos(finishTime - startTime));
@@ -55,6 +56,8 @@ public class WorldManagement {
     public void restartWorld() throws IOException {
 
         startTime = System.currentTimeMillis();
+
+        executeCommands(plugin.getConfig().getStringList("config.prev_commands"));
 
         /*
         Progress: [----------]

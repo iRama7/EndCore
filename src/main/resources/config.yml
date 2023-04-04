@@ -5,6 +5,10 @@ config:
   time_between_actions: 40 #ticks
   restart_time: 168 #hours
   teleport_location:
+  prev_commands:
+    - ''
+  after_commands:
+    - ''
 language:
   teleport: "&e&lEND &7We've moved you to the spawn."
   restarting: "&e&lEND &7Cleaning the world..."
