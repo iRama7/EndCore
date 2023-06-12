@@ -9,8 +9,7 @@ import org.bukkit.entity.Player;
 
 import java.io.IOException;
 
-import static rama.EndCore.plugin;
-import static rama.EndCore.task;
+import static rama.EndCore.*;
 
 public class Commands implements CommandExecutor {
     @Override
@@ -37,7 +36,9 @@ public class Commands implements CommandExecutor {
                 plugin.reloadConfig();
                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aTeleport location saved."));
             }else if(args[0].equalsIgnoreCase("getTime")){
-                sender.sendMessage(task.getTimeFormatted());
+                sender.sendMessage(" " + task.getTimeFormatted());
+            }else if(args[0].equalsIgnoreCase("getDragonTimer")){
+                sender.sendMessage(" " + cronMain.getTimeFormatted(cronMain.nearestTimer(cronMain.getDays())));
             }
         }else if(args.length == 2 && args[0].equalsIgnoreCase("setTime")){
             long newTime = Long.parseLong(args[1]);

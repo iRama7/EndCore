@@ -7,6 +7,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static rama.EndCore.task;
 
+
 public class Placeholders extends PlaceholderExpansion {
     @Override
     public @NotNull String getIdentifier() {

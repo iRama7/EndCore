@@ -14,9 +14,12 @@ public final class EndCore extends JavaPlugin implements Listener {
     public static DelayedTask task;
     private long hours;
 
+    public static CronMain cronMain = new CronMain();
+
     public static Plugin plugin;
     @Override
     public void onEnable() {
+
         plugin = this;
         this.saveDefaultConfig();
         Bukkit.getPluginManager().registerEvents(this, this);
@@ -39,6 +42,7 @@ public final class EndCore extends JavaPlugin implements Listener {
             Bukkit.getPluginManager().disablePlugin(this);
         }
         new Placeholders().register();
+        cronMain.buildUtils(plugin.getConfig().getString("config.dragon_timer"));
     }
 
     @Override
