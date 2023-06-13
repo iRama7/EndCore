@@ -2,6 +2,7 @@ package rama;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import java.time.DayOfWeek;
@@ -32,8 +33,9 @@ public class CronMain {
     List<DayOfWeek> days = new ArrayList<>();
 
     public void startCrons(List<DayOfWeek> days){
+        FileConfiguration config = plugin.getConfig();
         for(DayOfWeek day : days){
-            startCron(getTimeUntil(day, hour, minute), day);
+            startCron(getTimeUntil(day, hour, minute), day, config);
         }
     }
 
@@ -55,12 +57,15 @@ public class CronMain {
     }
 
 
-    public void startCron(long delay, DayOfWeek day){
+    public void startCron(long delay, DayOfWeek day, FileConfiguration config){
         //"Sab, Dom, Mie - 20"
+        List<String> commands = config.getStringList("config.dragon_commands");
         BukkitScheduler scheduler = Bukkit.getScheduler();
         scheduler.runTaskLater(plugin, () -> {
-            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "dsl forcerespawn recursos_end");
-            startCron(getTimeUntil(day, hour, minute), day);
+            for(String command : commands){
+                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
+            }
+            startCron(getTimeUntil(day, hour, minute), day, config);
         }, (delay / 1000) * 20);
         Bukkit.getLogger().info("creating cron with " + delay / 1000 + " seconds");
     }
